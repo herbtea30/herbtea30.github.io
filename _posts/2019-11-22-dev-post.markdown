@@ -2,10 +2,11 @@
 layout: post
 title:  "반복되는 일상들"
 description: 주의없이 코딩하다가 뒤통수를 맞았다.
-date:   2019-11-22 12:20:00
+date:   2019-11-22 12:20:00 0000
 categories: Spring HandlerMethodArgumentResolver jquery 
 ---
-진행 중인 프로젝트에서 request Parameter를 처리하는부분을 Spring HandlerMethodArgumentResolver interface를 커스텀해서 사용 중인데, 
+### 진행 중인 프로젝트에서 request Parameter를 처리하는부분을<br>
+Spring HandlerMethodArgumentResolver interface를 커스텀해서 사용 중인데, 
 
 
 - 처음에는 팝업창이 잘 열리는데, 
@@ -18,6 +19,10 @@ categories: Spring HandlerMethodArgumentResolver jquery
 - 처음 팝업은 다시 잘되는데 두번째는 아래와 같은 오류가 발생.
 
 
+<br>
+
+## 로그 확인 
+---
 
 ```java
 Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.ClassCastException: [Ljava.lang.String; cannot be cast to java.lang.String] with root cause
@@ -25,33 +30,38 @@ Servlet.service() for servlet [dispatcherServlet] in context with path [] threw 
 java.lang.ClassCastException: [Ljava.lang.String; cannot be cast to java.lang.String...
 ```
 
-request parameter를 공통으로 받아서 처리하는 부분에서 동일ID로 여러개가 넘어올경우 
+**request parameter를 공통으로 받아서 처리하는 부분에서 동일ID로 여러개가 넘어올경우** 
 
 1. String 배열로 받게끔 구현해놓았는데, 
 2. String Casting Exception이 발생한 것으로 해당 부분이 의심이 가기 시작. 
 3. 공통화시킨 common.js를 확인해 보니 addParam Function에서 append만 되고, 
 4. 다시 요청시 동일한 파라미터가 append되어, String 배열로 받아지는 부분을 확인
+5. 넘어온 파라미터를 확인 하고, 배열로 넘어온 것을 확인 후
+6. 파라미터를 생성 후 넘겨주는 jquery 공통화 부분을 확인
 
 ```java
+//파라미터가 담긴 Map클래스에 담긴 파라미터 출력
 Set set = commandMap.entrySet();
 Iterator iterator = set.iterator();
 while (iterator.hasNext()){
     log.info(iterator.next().toString());
 }
 
-log 
-
-첫번째 팝업 호출시 로그
+//첫번째 팝업 호출시 로그
 2019-11-22 14:49:10.526  INFO 18684 --- [nio-8090-exec-3]
 k.co.jpos.bg.controller.OrderController  : DT=2019-11-22
 k.co.jpos.bg.controller.OrderController  : STYLECD=
 
-두번째 팝업 호출시 로그
+//두번째 팝업 호출시 로그
 2019-11-22 14:47:22.462  INFO 18684 --- [nio-8090-exec-8] k.co.jpos.bg.controller.OrderController  : DT=[Ljava.lang.String;@1ef35103
 k.co.jpos.bg.controller.OrderController  : STYLECD=[Ljava.lang.String;@142292a0
+
 ```
-5. 넘어온 파라미터를 확인 하고, 배열로 넘어온 것을 확인 후
-6. 파라미터를 생성 후 넘겨주는 jquery 공통화 부분을 확인.
+
+
+
+## 문제 발생부분
+---
 
 ```javascript
 this.addParam = function addParam(key, value) {
@@ -59,11 +69,13 @@ this.addParam = function addParam(key, value) {
 };
 ```
 
+ - 단일 파라미터가 아닌 동적생성에 따른 멀티파라미터가 넘어오면서 발생된 문제
  - 파라미터를 지우는 removeParam function을 추가하는 방법을 고민하다
  - append시점에 해당 key값을 id로 가지는 필드를 제거 이후
- - 다시 append하는 방식으로 변경하니 아주 잘된다.
+ - 다시 append하는 방식으로 변경
 
-- ### **최종 변경**
+## 수정/해결
+---
 
 ```javascript
 this.addParam = function addParam(key, value) {
@@ -72,5 +84,5 @@ this.addParam = function addParam(key, value) {
 };
 ```
 
-- ### **공통화 할때는 더 많은 케이스를 생각하고 만들어야겠다**.
+### 공통화 할때는 더 많은 케이스를 생각하고 만들어야겠다
 
