@@ -5,7 +5,7 @@ description: git commit squash
 date:   2019-11-23 13:06:00 00000
 categories: git rebase squash 
 ---
-![Git](https://git-scm.com/images/logo@2x.png)
+![Git](https://cdn-media-1.freecodecamp.org/images/1*TnsFDs-DEye722CrQXjv8w.png)
 
 # git rebase (squash) 사용하기
 <br>
@@ -17,6 +17,7 @@ git을 사용하면서 하나의 작업에 많은 커밋이 포함되어 있을 
 
 
 > 예제로 파일을 수정하여 4개의 커밋 생성했다.
+
 ```shell
 herbtea@herbtea-Laptop MINGW64 /c/study/clien/git-rebase (master)
 $ git lg
@@ -27,6 +28,7 @@ $ git lg
 ```
 
 > 그리고 다음 명령어를 실행했다.
+
 ```shell
 git rebase -i HEAD~3
 ```
