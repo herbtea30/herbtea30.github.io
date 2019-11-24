@@ -3,7 +3,7 @@ layout: post
 title:  "git rebase (squash) 사용하기"
 description: git commit squash
 date:   2019-11-23 13:06:00 00000
-categories: git rebase squash 
+categories: git rebase squash
 ---
 ![Git](https://cdn-media-1.freecodecamp.org/images/1*TnsFDs-DEye722CrQXjv8w.png)
 
