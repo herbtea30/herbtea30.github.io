@@ -9,8 +9,10 @@ $smallMobileW: 480px;
 $bigScreenW: 1600px;
 $leftWidth: 220px;
 
+$black: #000;
 $gray: #999;
 $lightGray: #eee;
+$white: #fff;
 
 *,*:before,*:after {
 	box-sizing: border-box;
@@ -23,6 +25,7 @@ body {
 	margin: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	background: rgb(71, 71, 71);
 }
 
 a {
@@ -151,7 +154,7 @@ header {
 }
 
 .post-title {
-	color: #222;
+	color: rgb(255, 255, 255);
 	transition: color .3s ease;
 	margin: .1em 0;
 	&:hover {
@@ -206,6 +209,7 @@ header {
 
 .posts, .post-container {
 	margin-top: 40px;
+	color: #fff;
 }
 
 .post-meta {
