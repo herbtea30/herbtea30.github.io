@@ -17,8 +17,9 @@ texture:
   tagline: Java Developer. 
   date_format: "%b %-d, %Y"
   style: black
-  showNav: false
+  showNav: true
   showPicker: false
+  disqus_shortname: herbtea30
 
   # generate social links in footer
   social_links:
@@ -39,3 +40,4 @@ texture:
 plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
+

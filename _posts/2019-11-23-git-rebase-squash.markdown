@@ -82,7 +82,10 @@ pick a732f52 task 2
 squash 9aaac2d task 3
 pick 9b805e1 task 4
 ```
-세번째 커밋을 squash하게 변경하고, 저장하면 커밋 메세지를 수정할 수있는 에디터가 뜬다.
+세번째 커밋을 squash하게 변경하고, 저장하면 커밋 메세지를 수정할 수있는 에디터가 뜬다.<br>
+<br>
+세번째 커밋을 squash로 변경하였기 때문에 이전 커밋인 두번째 커밋과 합쳐지게 되고,
+에디터에 두번째 커밋과 세번재 커밋의 메세지가 보이게 된다.
 
 ```shell
 # This is a combination of 2 commits.
