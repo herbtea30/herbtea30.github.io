@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://herbtea30.github.io/sitemap.xml
