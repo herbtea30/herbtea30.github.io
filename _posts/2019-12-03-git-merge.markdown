@@ -1,0 +1,70 @@
+---
+layout: post
+title:  "Git을 쓰면서 무서운 경험을 하다. "
+description: Git Intellij commit의 중요성을 알았..
+date:   2019-12-03 13:11:00 00000
+categories: Git commit lost sourcecode Intellij Local 
+---
+
+![IntelliJ](https://cdn.inflearn.com/wp-content/uploads/IDEA2.jpg)
+어제 정말 끔직한 일이 벌어졌다. 생각하기 싫을 정도로 나름 잘쓰고 있다고 생각한 Git을 잘못사용해서
+2주간을 고생해서 만들고 있는 소스코드가 날아가는 일이 벌어졌다.
+
+
+피곤한 상태에서 야근중에 벌어진 일이라 누구를 탓할수도 없고 그냥 정신이 멍했다.
+사내 Git서버에서 Fetch를 받아서 적용하려고 하다가 날린것이다.
+
+브랜치별로 쪼개서 협업 개발중이었는데. Fetch전에 작업중이던 브랜치에서 master branch로 이동한후에
+마스터브랜치에서 Fetch후 FETCH_HEAD와 머지하는 과정에서 conflit가 발생.
+
+당연히 conflict 수정후에 합치려고 작업을 하는데, 그날 따라 왠지 다른걸로 해보고 싶었다.
+평소에는 CLI를 선호해서 git Bash쉘에서작업을 하는데, 개발툴에서 해고 싶더라.. 이게 시작이었지!!!
+conflict난 파일을 Intellij에서 열고 열심히 conflict 수정하고 저장하고 반영하는데
+당연히 별 문제 없을꺼라고 생각하고 수정 다 하고, 음???!???!
+order 브랜치로 Checkout하려는데 평소랑 다른 메세지가 마구 뜨는 것이다.
+
+### 아 설마 내가 수정중인파일과 추가한 파일들이 날아가진 않았겠지??
+
+## 에이.. 설마
+
+### 나 커밋 아직 안했는데.. ㅎㅎ
+
+---
+
+master랑 order브랜치가 merge가 되버린 사태가 발생했다.<br>
+
+**수정하고 Commit하지 않은 나의 파일들은?????** <br>
+부랴부랴 git을 이용한 복구를 위해 git reflog로 히스토리 확인 후 
+```
+    git reflog
+    git reset HEAD@{8}
+```
+로그확인후 이전 시점으로 리셋 리셋 리셋 하...
+날렸다.. 커밋을 안한 죄를 지었다.. 
+수정한 파일들은 싹다 날라갔고, 새로추가된 Untracked파일만 남았다 그나마 다행인건지..
+
+허탈한 마음에 집에와서 컴퓨터를 쳐다 보고 싶지도 않았다.
+Git으로는 커밋하지 않은 파일에 대한 유실을 복구할 수 있는 방법이 없었다.
+
+### 다시 하기 싫은데 
+## 자책하다가..
+
+그러다가 Intellij에 LocalHistory이 기억이 나서..
+커밋하지 않았던 파일들의 LocalHistoty를 확인해보니!!! 다 살아있었다..
+
+## JetBrains만세! IntelliJ만세!
+
+바로 복구하고, 테스트 돌리고,
+
+```
+    git add .
+    git commit -m "주문프로그램 중간 커밋"
+    git push origin master
+```
+광속으로 실행완료..
+
+### 다음부터는 꼭!!! Fetch전에 Local커밋하고, Fetch를 진행해야겠다. 라는 교훈을 얻었다.
+### 그리고 이 경험을 공유하고자 이 포스트를 남겨놓아야겠다.
+
+## IntelliJ Local History기능 두 번사용하세요. 세 번사용하세요!
+
