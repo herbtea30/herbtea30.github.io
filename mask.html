@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>공적마스크 조회</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+<h1>공적마스크 재고조회</h1>
+<div class="row">
+    <div class="col-xs-5 col-md-5">
+        <input type="text" id="address" class="form-control" placeholder="주소를 입력하세요." value="" onkeydown="if(event.keyCode === 13) search();"/>
+    </div>
+    <div class="col-xs-7 col-md-7">
+        <button class="btn btn-info" onclick="search()">Search</button>
+    </div>
+</div>
+    <br>
+<br>
+<div id="map" style="width:90%;height:500px;"></div>
+
+<script>
+    $(document).ready(function() {
+        $("#address").keydown(function(key) {
+            if (key.keyCode == 13) {
+                search();
+                $('#address').val('');
+            }
+        });
+    });
+
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9cf02768a58a6d59b41fa8459358c302&libraries=services"></script>
+    <script src="api.js"></script>
+</div>
+</body>
+</html>
