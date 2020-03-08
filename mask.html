@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <title>공적마스크 조회</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="jquery.ajax-cross-origin.min.js"></script>
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- 부가적인 테마 -->
@@ -86,6 +87,7 @@
             var lng = result[0].x;
             var aJsonArray = new Array();
             $.ajax({
+                crossOrigin: true,
                 url: "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json",
                 data: {
                         "lat": lat,
