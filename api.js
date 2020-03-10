@@ -142,7 +142,7 @@ function search() {
                         stockqty = "1개이하";
                     } else {
                         var content = '<h4><span class="label label-default"\'';
-                        stockqty = "재고없";
+                        stockqty = "재고없음";
                     }
                     content += '             onclick="shopinfo(\''+aJsonArray[i].name+'\',\''
                         +aJsonArray[i].addr+'\',\''
