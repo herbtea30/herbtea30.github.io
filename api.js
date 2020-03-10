@@ -134,13 +134,13 @@ function search() {
 
                     // 커스텀 오버레이에 표시할 내용입니다
                     // HTML 문자열 또는 Dom Element 입니다
-                    if(parseInt(aJsonArray[i].remain_stat) >= 100) {
+                    if(parseInt(aJsonArray[i].remain_stat) >= 100 ||  aJsonArray[i].remain_stat = 'plenty') {
                         var content = '<h4><span class="label label-success"\'';
-                    } else if(parseInt(aJsonArray[i].remain_stat) >= 30 && parseInt(aJsonArray[i].remain_stat) <= 99) {
+                    } else if((parseInt(aJsonArray[i].remain_stat) >= 30 && parseInt(aJsonArray[i].remain_stat) <= 99) || aJsonArray[i].remain_stat == 'some') {
                         var content = '<h4><span class="label label-warning"\'';
-                    } else if(parseInt(aJsonArray[i].remain_stat) >= 2 && (aJsonArray[i].remain_stat) <= 29) {
+                    } else if((parseInt(aJsonArray[i].remain_stat) >= 2 && parseInt(aJsonArray[i].remain_stat) <= 29) || aJsonArray[i].remain_stat == 'few') {
                         var content = '<h4><span class="label label-danger"\'';
-                    } else if(parseInt(aJsonArray[i].remain_stat) >= 0 && parseInt(aJsonArray[i].remain_stat) <= 1) {
+                    } else if((parseInt(aJsonArray[i].remain_stat) >= 0 && parseInt(aJsonArray[i].remain_stat) <= 1) || aJsonArray[i].remain_stat == 'empty') {
                         var content = '<h4><span class="label label-default"\'';
                     } else {
                         var content = '<h4><span class="label label-default"\'';
