@@ -178,6 +178,7 @@ function shopinfo(name, addr, stock_at, remain_stat, lat, lng){
     $('#storedetail').css('display', "");
     $('#storenm').html('<strong>'+name+'</storng>');
     $('#addr').text(addr);
+    $('#storestock').html('<strong> 재고 '+remain_stat+'</strong>')
 }
 
 function currdisplay() {
