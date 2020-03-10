@@ -125,33 +125,32 @@ function search() {
                         image: markerImage
                     });
 
-                    // 인포윈도우로 장소에 대한 설명을 표시합니다
-                    // var infowindow = new kakao.maps.InfoWindow({
-                    //     //content: '<div style="width:150px;text-align:left;padding:6px 0;"><small>* '+aJsonArray[i].title+'</small><br><small>* 재고량: <mark>'+aJsonArray[i].qty+'</mark></small></div>'
-                    //     content: '<div style="width:150px;text-align:left;padding:6px 0;"><small>* '+aJsonArray[i].name+'</small><br><small>* 재고량: <strong>'+aJsonArray[i].remain_cnt+'</strong></small></div>'
-                    // });
-                    // infowindow.open(map, markerd);
+                    var stockqty = "";
 
-                    // 커스텀 오버레이에 표시할 내용입니다
-                    // HTML 문자열 또는 Dom Element 입니다
-                    if(parseInt(aJsonArray[i].remain_stat) >= 100 ||  aJsonArray[i].remain_stat = 'plenty') {
+
+                    if(aJsonArray[i].remain_stat === 'plenty') {
                         var content = '<h4><span class="label label-success"\'';
-                    } else if((parseInt(aJsonArray[i].remain_stat) >= 30 && parseInt(aJsonArray[i].remain_stat) <= 99) || aJsonArray[i].remain_stat == 'some') {
+                        stockqty = "100개이상";
+                    } else if(aJsonArray[i].remain_stat === 'some') {
                         var content = '<h4><span class="label label-warning"\'';
-                    } else if((parseInt(aJsonArray[i].remain_stat) >= 2 && parseInt(aJsonArray[i].remain_stat) <= 29) || aJsonArray[i].remain_stat == 'few') {
+                        stockqty = '99개이하'
+                    } else if(aJsonArray[i].remain_stat === 'few') {
                         var content = '<h4><span class="label label-danger"\'';
-                    } else if((parseInt(aJsonArray[i].remain_stat) >= 0 && parseInt(aJsonArray[i].remain_stat) <= 1) || aJsonArray[i].remain_stat == 'empty') {
+                        stockqty = '29개이하'
+                    } else if(aJsonArray[i].remain_stat === 'empty') {
                         var content = '<h4><span class="label label-default"\'';
+                        stockqty = "1개이하";
                     } else {
                         var content = '<h4><span class="label label-default"\'';
+                        stockqty = "재고없";
                     }
                     content += '             onclick="shopinfo(\''+aJsonArray[i].name+'\',\''
                         +aJsonArray[i].addr+'\',\''
                         +aJsonArray[i].stock_at+'\',\''
-                        +aJsonArray[i].remain_stat+'\',\''
+                        +stockqty+'\',\''
                         +aJsonArray[i].lat+'\',\''
                         +aJsonArray[i].lng+'\',\''
-                        +'\')" role="button"\>'+aJsonArray[i].name+':\''+aJsonArray[i].remain_stat+'\'</span></h4>';
+                        +'\')" role="button"\>'+aJsonArray[i].name+':\''+stockqty+'\'</span></h4>';
 
                     /*var content = '<a href="#" class="btn btn-success btn-sm" ' +
                         '             onclick="shopinfo(\''+aJsonArray[i]+'\')" role="button"\>'+'재고 : '+aJsonArray[i].remain_cnt+'</a>';*/
