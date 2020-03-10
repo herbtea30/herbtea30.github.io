@@ -63,6 +63,11 @@ function search() {
     }
 
     geocoder.addressSearch($('#address').val(), function(result, status) {
+        console.log(status);
+        if(status == 'ZERO_RESULT') {
+            alert('입력한 주소로 검색된 위치가 없습니다. 확인바랍니다.');
+            return;
+        }
         var lat = result[0].y;
         var lng = result[0].x;
         var aJsonArray = new Array();
@@ -170,7 +175,6 @@ function search() {
     });
 }
 function shopinfo(name, addr, stock_at, remain_stat, lat, lng){
-    console.log(name + "/" + addr + "/" + stock_at + "/" + remain_stat + "/" + lat + "/" + lng);
     $('#storedetail').css('display', "");
     $('#storenm').html('<strong>'+name+'</storng>');
     $('#addr').text(addr);
