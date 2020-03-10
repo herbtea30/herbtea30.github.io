@@ -71,13 +71,12 @@ function search() {
             data: {
                 "lat": lat,
                 "lng": lng,
-                "m": 1000
+                "m": 3000
             },
             type: "GET",
             async: false,
             dataType: "json",
             success: function (data) {
-                console.log(data);
                 $(data.stores).each(function (index, store) {
                     var aJson = new Object();
                     aJson.name = store.name;
@@ -129,16 +128,16 @@ function search() {
 
                     // 커스텀 오버레이에 표시할 내용입니다
                     // HTML 문자열 또는 Dom Element 입니다
-                    if(aJsonArray[i].remain_stat >= 100) {
-                        var content = '<Button class="btn btn-success btn-sm" ';
-                    } else if(aJsonArray[i].remain_stat >= 30 && aJsonArray[i].remain_stat <= 99) {
-                        var content = '<Button class="btn btn-warning btn-sm" ';
-                    } else if(aJsonArray[i].remain_stat >= 2 && aJsonArray[i].remain_stat <= 29) {
-                        var content = '<Button class="btn btn-danger btn-sm" ';
-                    } else if(aJsonArray[i].remain_stat >= 0 && aJsonArray[i].remain_stat <= 1) {
-                        var content = '<Button class="btn btn-default btn-sm"\'';
+                    if(parseInt(aJsonArray[i].remain_stat) >= 100) {
+                        var content = '<h4><span class="label label-success"\'';
+                    } else if(parseInt(aJsonArray[i].remain_stat) >= 30 && parseInt(aJsonArray[i].remain_stat) <= 99) {
+                        var content = '<h4><span class="label label-warning"\'';
+                    } else if(parseInt(aJsonArray[i].remain_stat) >= 2 && (aJsonArray[i].remain_stat) <= 29) {
+                        var content = '<h4><span class="label label-danger"\'';
+                    } else if(parseInt(aJsonArray[i].remain_stat) >= 0 && parseInt(aJsonArray[i].remain_stat) <= 1) {
+                        var content = '<h4><span class="label label-default"\'';
                     } else {
-                        var content = '<Button class="btn btn-default btn-sm"\'';
+                        var content = '<h4><span class="label label-default"\'';
                     }
                     content += '             onclick="shopinfo(\''+aJsonArray[i].name+'\',\''
                         +aJsonArray[i].addr+'\',\''
@@ -146,7 +145,7 @@ function search() {
                         +aJsonArray[i].remain_stat+'\',\''
                         +aJsonArray[i].lat+'\',\''
                         +aJsonArray[i].lng+'\',\''
-                        +'\')" role="button"\>'+'재고 : \''+aJsonArray[i].remain_stat+'\'</Button>';
+                        +'\')" role="button"\>'+aJsonArray[i].name+':\''+aJsonArray[i].remain_stat+'\'</span></h4>';
 
                     /*var content = '<a href="#" class="btn btn-success btn-sm" ' +
                         '             onclick="shopinfo(\''+aJsonArray[i]+'\')" role="button"\>'+'재고 : '+aJsonArray[i].remain_cnt+'</a>';*/
@@ -158,7 +157,7 @@ function search() {
                     var customOverlay = new kakao.maps.CustomOverlay({
                         position: position,
                         content: content,
-                        yAnchor: 1.5
+                        yAnchor: 1.2
                     });
 
                     // 커스텀 오버레이를 지도에 표시합니다
@@ -171,6 +170,9 @@ function search() {
 }
 function shopinfo(name, addr, stock_at, remain_stat, lat, lng){
     console.log(name + "/" + addr + "/" + stock_at + "/" + remain_stat + "/" + lat + "/" + lng);
+    $('#storedetail').css('display', "");
+    $('#storenm').html('<strong>'+name+'</storng>');
+    $('#addr').text(addr);
 }
 
 function currdisplay() {
