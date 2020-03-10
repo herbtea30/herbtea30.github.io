@@ -55,6 +55,7 @@ geocoder.addressSearch('', function(result, status) {
 });
 
 function search() {
+    $('#storedetail').css("display", "none");
     if($('#address').val() === '') {
         alert("주소를 입력하세요");
         $('#address').focus();
