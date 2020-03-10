@@ -77,7 +77,7 @@ function search() {
             data: {
                 "lat": lat,
                 "lng": lng,
-                "m": 3000
+                "m": 1000
             },
             type: "GET",
             async: false,
