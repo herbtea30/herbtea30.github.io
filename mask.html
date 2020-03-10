@@ -1,7 +1,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>공적마스크 조회</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>공적마스크 재고조회</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -11,52 +12,51 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<p class="container-fluid">
-<div class="col-xs-1 col-md-1">
-    &nbsp;
-</div>
-<div class="col-xs-11 col-md-11">
-    <h3><strong>공적마스크 재고조회</strong></h3>
+<div class="container-fluid">
+<div class="col-xs-12 col-md-12 text-center">
+    <h2><strong>공적마스크 재고조회</strong></h2>
+    <h5><small>재고는 데이터 전송처리로 현장과 5~10분정도 차이가 발생됩니다.</small></h5>
 </div>
 <div class="row">
-    <div class="col-xs-1 col-md-1">
-        &nbsp;
+    <div class="col-xs-8 col-md-8">
+        <input type="text" id="address" class="form-control" placeholder="주소를 입력하세요."value="" onkeydown="if(event.keyCode === 13) search();">
     </div>
-    <div class="col-xs-7 col-md-7">
-        <input type="text" id="address" class="form-control" placeholder="주소를 입력하세요." value="" onkeydown="if(event.keyCode === 13) search();"/>
+    <div class="col-xs-2 col-md-2">
+        <button type="button" class="btn btn-success btn-sm" onclick="search()">검색</button>
     </div>
-    <div class="col-xs-4 col-md-4">
-        <button class="btn btn-success btn-sm" onclick="search()">검색</button>
-        <button class="btn btn-info btn-sm" onclick="currdisplay()">현재위치</button>
+    <div class="col-xs-2 col-md-2 pull-right">
+        <span onclick="zoomIn()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" width="13" height="13" alt="확대"></span>
+        <span onclick="zoomOut()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" width="13" height="13" alt="축소"></span>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-1 col-md-1">
-        &nbsp;
-    </div>
-    <div class="col-xs-11 col-md-11">
-        <div id="map" style="width:85%;height:50%;position:relative;overflow:hidden;"></div>
+<div class="row text-center">
+    <div class="col-xs-12 col-md-12">
+        <div id="map" style="width:100%;height:60%;position:relative;overflow:hidden;"></div>
     </div>
 </div>
     <div class="row">
-        <div class="col-xs-1 col-md-1">
-            &nbsp;
-        </div>
-    <div class="col-xs-4 col-md-4">
+    <div class="col-xs-5 col-md-5">
             <h5>herbtea<small> CLIEN 개발한당 2020</small></h5>
     </div>
-    <div class="col-xs-5 col-md-5">
+    <div class="col-xs-7 col-md-7">
         <!-- 지도타입 컨트롤 div 입니다 -->
         <div class="custom_typecontrol radius_border pull-right">
+            <button class="btn btn-default btn-sm" onclick="currdisplay()">현재위치</button>
             <span id="btnRoadmap" class="btn btn-info btn-sm" onclick="setMapType('roadmap')">지도</span>
             <span id="btnSkyview" class="btn btn-primary btn-sm" onclick="setMapType('skyview')">스카이뷰</span>
-            <span onclick="zoomIn()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" width="20" height="20" alt="확대"></span>
-            <span onclick="zoomOut()"><img src="http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" width="20" height="20" alt="축소"></span>
         </div>
     </div>
-        <div class="col-xs-1 col-md-1">
-            &nbsp;
+    </div>
+    <div class="col-xs-12 col-md-12">
+        <div class="alert alert-success" role="alert" id="storedetail" style="display:none">
+            <span id="storenm"><strong>Well done!</strong></span> <span id="addr">You successfully read this important alert message.</span>
         </div>
+    </div>
+    <h5><small>* 일부 약국에서는 번호표를 배부할 수 있으며, 번호표 정보는 제공되지 않습니다.</small></h5>
+    <h5><small>* 현장에서 고생하시는 약사님,우체국,하나로마트 직원분들의 노고에 감사드립니다.</small></h5>
+    <div class="pull-right">
+        <h5><small> - 식약처 공적마스크 구매 안내 : <a href="http://blog.naver.com/kfdazzang/221839489769" target="_blank">클릭</a></small></h5>
+        <h5><small> - email : <strong>herbtea30@gmail.com</strong></small></h5>
     </div>
 <script>
     $(document).ready(function() {
