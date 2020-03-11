@@ -77,7 +77,7 @@ function search() {
             data: {
                 "lat": lat,
                 "lng": lng,
-                "m": 1000
+                "m": 3000
             },
             type: "GET",
             async: false,
@@ -175,6 +175,27 @@ function search() {
 }
 function shopinfo(name, addr, stock_at, remain_stat, lat, lng){
     $('#storedetail').css('display', "");
+    if(remain_stat === '99개이하') {
+        $('#storedetail').removeClass(function () {
+            return $(this).attr("class");
+        });
+        $('#storedetail').addClass('alert alert-warning');
+    } else if(remain_stat === '29개이하') {
+        $('#storedetail').removeClass(function () {
+            return $(this).attr("class");
+        });
+        $('#storedetail').addClass('alert alert-danger');
+    } else if(remain_stat === '100개이상'){
+        $('#storedetail').removeClass(function () {
+            return $(this).attr("class");
+        });
+        $('#storedetail').addClass('alert alert-success');
+    } else {
+        $('#storedetail').removeClass(function () {
+            return $(this).attr("class");
+        });
+        $('#storedetail').addClass('well');
+    }
     $('#storenm').html('<strong>'+name+'</storng>');
     $('#addr').text(addr);
     $('#storestock').html('<strong> 재고 '+remain_stat+'</strong>')
