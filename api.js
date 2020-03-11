@@ -7,25 +7,6 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 // 지도를 생성합니다
 var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
-function setMapType(maptype) {
-    if (maptype === 'roadmap') {
-        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
-    } else {
-        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
-    }
-}
-
-// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-function zoomIn() {
-    map.setLevel(map.getLevel() - 1);
-}
-
-// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-function zoomOut() {
-    map.setLevel(map.getLevel() + 1);
-}
-
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
@@ -34,21 +15,17 @@ geocoder.addressSearch('', function(result, status) {
 
     // 정상적으로 검색이 완료됐으면
     if (status === kakao.maps.services.Status.OK) {
-
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new kakao.maps.Marker({
             map: map,
             position: coords
         });
-
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
             content: '<div style="width:150px;text-align:center;padding:6px 0;">location</div>'
         });
         infowindow.open(map, marker);
-
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     }
@@ -63,7 +40,6 @@ function search() {
     }
 
     geocoder.addressSearch($('#address').val(), function(result, status) {
-        console.log(status);
         if(status == 'ZERO_RESULT') {
             alert('입력한 주소로 검색된 위치가 없습니다. 확인바랍니다.');
             return;
@@ -127,7 +103,6 @@ function search() {
 
                     var stockqty = "";
 
-
                     if(aJsonArray[i].remain_stat === 'plenty') {
                         var content = '<h4><span class="label label-success"\'';
                         stockqty = "100개이상";
@@ -150,7 +125,7 @@ function search() {
                         +stockqty+'\',\''
                         +aJsonArray[i].lat+'\',\''
                         +aJsonArray[i].lng+'\',\''
-                        +'\')" role="button"\>'+aJsonArray[i].name+':\''+stockqty+'\'</span></h4>';
+                        +'\')" \>'+aJsonArray[i].name+':\''+stockqty+'\'</span></h4>';
 
                     /*var content = '<a href="#" class="btn btn-success btn-sm" ' +
                         '             onclick="shopinfo(\''+aJsonArray[i]+'\')" role="button"\>'+'재고 : '+aJsonArray[i].remain_cnt+'</a>';*/
@@ -164,7 +139,6 @@ function search() {
                         content: content,
                         yAnchor: 1.2
                     });
-
                     // 커스텀 오버레이를 지도에 표시합니다
                     customOverlay.setMap(map);
             }
@@ -199,6 +173,10 @@ function shopinfo(name, addr, stock_at, remain_stat, lat, lng){
     $('#storenm').html('<strong>'+name+'</storng>');
     $('#addr').text(addr);
     $('#storestock').html('<strong> 재고 '+remain_stat+'</strong>')
+    $('#stock_at').html('<strong>입고시간 : </strong>');
+    if(stock_at !== 'null')
+    $('#stock_at_content').text(stock_at);
+    else $('#stock_at_content').text('입고시간 정보없음');
 }
 
 function currdisplay() {
@@ -222,6 +200,25 @@ function currdisplay() {
     } else {
         consol.log("Geolocation을 지원하지 않는 브라우저 입니다.");
     }
+}
+
+// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+function setMapType(maptype) {
+    if (maptype === 'roadmap') {
+        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+    } else {
+        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+    }
+}
+
+// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomIn() {
+    map.setLevel(map.getLevel() - 1);
+}
+
+// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+function zoomOut() {
+    map.setLevel(map.getLevel() + 1);
 }
 
 // 지도에 마커와 인포윈도우를 표시하는 함수입니다
