@@ -1,3 +1,6 @@
+var loading = $('')
+    .appendTo(document.body).show();
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌ß표
@@ -58,9 +61,13 @@ function search() {
             type: "GET",
             async: false,
             dataType: "json",
+            beforeSend: function(){
+                xShowAjaxLoading(true);
+            },
             success: function (data) {
                 $(data.stores).each(function (index, store) {
                     var aJson = new Object();
+                    aJson.code = store.code;
                     aJson.name = store.name;
                     aJson.remain_stat = store.remain_stat;
                     aJson.stock_at = store.stock_at;
@@ -70,7 +77,11 @@ function search() {
                     aJsonArray.push(aJson);
                 });
             },
+            complete: function() {
+                xShowAjaxLoading(false);
+            },
             error: function (xhr, status, error) {
+                xShowAjaxLoading(false);
                 console.log("error ocurred");
             }
         });
@@ -132,12 +143,28 @@ function search() {
 
                     // 커스텀 오버레이가 표시될 위치입니다
                     var position = new kakao.maps.LatLng(aJsonArray[i].lat, aJsonArray[i].lng);
+                    var yanchor = 1.2;
+
+                    var dupInfo = checkDuplication(aJsonArray, position, aJsonArray[i].name);
+                    for(var j=0;j<dupInfo.length;j++){
+                        if(dupInfo[j].seq === 1) {
+
+                        } else if(dupInfo[j].seq === 2) {
+                            yanchor = 1.9;
+                        } else if(dupInfo[j].seq === 3) {
+                            yanchor = 2.6;
+                        } else if(dupInfo[j].seq === 4) {
+                            yanchor = 3.3;
+                        } else if(dupInfo[j].seq === 5) {
+                            yanchor = 4.0;
+                        }
+                    }
 
                     // 커스텀 오버레이를 생성합니다
                     var customOverlay = new kakao.maps.CustomOverlay({
                         position: position,
                         content: content,
-                        yAnchor: 1.2
+                        yAnchor: yanchor
                     });
                     // 커스텀 오버레이를 지도에 표시합니다
                     customOverlay.setMap(map);
@@ -146,6 +173,19 @@ function search() {
             map.setCenter(coords);
         }
     });
+}
+function checkDuplication(aJsonArray, position, name) {
+    var cnt = 1;
+    var result = new Array();
+    for(var i=0; i<aJsonArray.length; i++){
+        var position_array = new kakao.maps.LatLng(aJsonArray[i].lat, aJsonArray[i].lng);
+        if(position.equals(position_array)){
+            aJsonArray[i].seq = cnt;
+            cnt++;
+            if(aJsonArray[i].name === name) result.push(aJsonArray[i]);
+        }
+    }
+    return result;
 }
 function shopinfo(name, addr, stock_at, remain_stat, lat, lng){
     $('#storedetail').css('display', "");
@@ -245,3 +285,27 @@ function displayMarker(locPosition, message) {
     // 지도 중심좌표를 접속위치로 변경합니다
     map.setCenter(locPosition);
 }
+// ********************************** [ // *************************************]
+//  ajax 로딩 화면 보이기.
+// **********************************
+xShowAjaxLoading = function( bln )
+{
+    if ( bln == true )
+    {
+        $("#xAjax").removeClass("xDivDisplayNone"); // 보여주지 xDivDisplayNone:css.css정의
+    } else {
+        $("#xAjax").addClass("xDivDisplayNone"); // 보이지 말기
+    }
+};
+
+// **********************************
+//  ajax 로딩 이미지 삽입 각 페이지마다 호출하여 boby 에 넣어준다.
+//  로더 이미지는 만들면 되는 건데 .. 내 블로그에 이미지 만드는 사이트 링트 있습니다.
+// **********************************
+xAddAjaxLoading = function ()
+{
+    var strAjax = "<div id='xAjax' class='xDivAjax xDivDisplayNone'>";
+    strAjax+="<div><img src=./load.gif'/></div>";
+    strAjax+="</div>";
+    $( "body" ).append(strAjax);
+};
