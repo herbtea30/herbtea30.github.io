@@ -1,0 +1,92 @@
+---
+layout: post
+title: 'CI/CD ?'
+description: Sprngboot Test git github Jenkins Webhook Slack notification Deploy
+date: 2020-05-29 23:22:00 00000
+categories: CI/CD Test Build Deploy Notification
+---
+
+![CICD](https://miro.medium.com/max/1400/0*TH1nBsXNDB5Njynk.PNG)
+CD/CI란 것이 보편화 된지 꽤 된것같다.<br/>
+하지만 지금 내가 몸담고 있는 이 곳에서는 아직 먼(?) 이야기 인것 같다.<br/>
+관심은 있지만 시간에 치여 진행하지 못했던 것들 하나씩 해보려고 한다.<br/>
+
+- ## CI ?
+
+  CI(Continuous Integration) 지속적인 통합. 빌드 및 테스트의 자동화의 개념
+
+- ## CD ?
+
+  CD(Continuous Delivery or Deployment) 지속적인 배포. 배포 자동화의 개념
+
+![CI/CD](https://wac-cdn.atlassian.com/dam/jcr:b2a6d1a7-1a60-4c77-aa30-f3eb675d6ad6/ci%20cd%20asset%20updates%20.007.png?cdnVersion=1044)
+
+## 그래서 이게 뮈지? 좋은건가?
+
+---
+
+- ## 일반적인 개발 프로세스
+
+      회사에서 서비스를 진행하는데 보통 여러 개발자들이 같이 개발하는 환경이다.
+      그리고 보통 git을 사용해서, 소스코드를 관리하고, 각 회사들은 브랜치 전략에 맞춰
+      브랜치를 생성하여 개발을 진행한다.
+      개발자들은 개별로 담당하는 프로그램의 테스트를 한 후 커밋을 하고,
+      중앙저장소에 PR을 날리고, 중앙저장소에서 PR을 코드리뷰를 거쳐 반영한다.
+      중앙저장소에 저장된 소스를 내려받아 동기화를 하고, 빌드테스트 한후 빌드 한다.
+      테스트 서버에서 테스트를 마치고, 릴리즈하여, 운영서버에 반영 후 운영한다.
+      이 모든 절차가 수동으로 이루어거나, 스크립트 형태로 하기도 한다.
+
+  <br/>
+
+* ## 더 먼 옛날..
+
+      좀 더 Old한 구성을 하는 곳에서는 cvs/svn/git과 같은 VCS도 사용하지 않고,
+      수동으로 개인들이 소스관리하고, 테스트코드/코드리뷰는 없고, 바로 운영서버에 수동으로
+      Copy & paste를 하고 반영전에 서버를 중단하고 반영하기에 다운타임도 발생할 것이다.
+      그리고 배포본이 최종본이 아니라면??
+      .....? 꿈이길
+
+  ![어?](https://lh3.googleusercontent.com/proxy/bbWflF2xVS73jaCYbN0E32IjTJ-YntZVxzQlyHP6D0dnxWEBI9I0XOLQqIyQlZliL8KaPY_NUcXrrKYqmlDvgBmMhLPWjYVF-9gawOwvfHrcCDyVsPSf13Wn_Y9sUCc6oUd1boBb5kbYCsbC9esyGIs1Z1e27kbAlX1NnqmKKKM)
+
+  <br/>
+
+---
+
+- ## 왜해야하는가?
+
+  <b>어느정도 답이 되었는지..<br/>
+
+  위 개발 프로세스를 자동화 할 수 있다면 어떻게 하겠는가?<br/>
+  <br/>
+  수동으로 적용함에 있어서 발생하는 오류의 발생을 없애고<br/>
+  그것도 서비스를 무중단으로 변경된 빌드의 적용가능하다면??<br/>
+  개발자는 좀 더 개발에 집중할 수 있어서 코드의 품질이 올라 갈 것이고,<br/>
+  훨씬 빠른 속도로, 개발 전체 프로세스가 진행될 것이다.<br/>
+  <br/>
+  결국 프로젝트가 커지고, 조직이 커지면 수동의 한계는 명확하다.<br/>
+  <br/>
+  이러한 부분을 해결하기 위해 나온 개념이 CI/CD이다<br/><br/>
+  </b><br/>
+
+- ## 어떻게 해야하는 것일까?
+
+  좋은건 알겠는데 어떻게 적용해야하는지<br/>
+  가장 많이 사용하는 툴은 뭐가 있을까<br/>
+  어떻게 구성해야 사용하는 것일까? <br/>
+  <br/>
+  차차 알아보도록 해봐야겠다.<br/>
+
+---
+
+- ## 기본지식
+
+  앞으로 작성될 내용에는 기본적으로 알고 있어야 할 것들
+
+  - git에 대한 기본지식
+  - docker에 대한 기본지식(물론 없어도 가능, 알면 편하게 가능)
+  - 무엇보다도 인프라 구성에 대한 관심
+  - 개선하고자 하는 의지!
+
+  일단 정도면 되지 않을까?
+
+## <br/>
