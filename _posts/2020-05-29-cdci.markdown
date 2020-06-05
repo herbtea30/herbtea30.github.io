@@ -6,7 +6,7 @@ date: 2020-05-29 23:22:00 00000
 categories: CI/CD Test Build Deploy Notification
 ---
 
-![CICD](https://image.fmkorea.com/files/attach/new/20200218/486616/2280159646/2723483754/96f4a730754ae62e81d65df450dc5d1d.jpg)
+![CICD](https://miro.medium.com/max/1400/0*TH1nBsXNDB5Njynk.PNG)
 CD/CI란 것이 보편화 된지 꽤 된것같다.<br/>
 하지만 지금 내가 몸담고 있는 이 곳에서는 아직 먼(?) 이야기 인것 같다.<br/>
 관심은 있지만 시간에 치여 진행하지 못했던 것들 하나씩 해보려고 한다.<br/>
